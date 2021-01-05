@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Trello"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:forms="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             ios:Page.UseSafeArea="true"
+             x:Class="Trello.MainPage"
+             BackgroundColor="DarkSlateGray">
+
+    <Grid RowDefinitions="40,*">
+        <FlexLayout JustifyContent="SpaceBetween" Padding="8,0" Grid.Row="0" AlignItems="Center" HeightRequest="50">
+            <StackLayout Orientation="Horizontal">
+                <Button Text="X" Margin="0,0,8,0" WidthRequest="30" HeightRequest="30" TextColor="White" FontSize="18" FontAttributes="Bold" />
+                <StackLayout>
+                    <Label Text="Fam" TextColor="White" FontSize="14"></Label>
+                    <Label Text="Johnson Fam" FontSize="10" TextColor="WhiteSmoke" Margin="0,-6,0,0"></Label>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <forms:SvgCachedImage 
+                    WidthRequest="20" 
+                    HeightRequest="20" 
+                    Source="search.svg" /> 
+
+                <forms:SvgCachedImage 
+                    WidthRequest="20"
+                    HeightRequest="20" 
+                    Margin="8,0,0,0"
+                    Source="bell.svg"/>
+            </StackLayout>
+        </FlexLayout>
+        <Grid BackgroundColor="WhiteSmoke" Grid.Row="1" Padding="8, 24">
+            <CollectionView 
+                ItemsSource="{Binding CardCroups}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout
+                        Orientation="Horizontal"
+                        ItemSpacing="24"
+                        SnapPointsType="MandatorySingle"
+                        SnapPointsAlignment="Center"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="local:CardGroup">
+                        <Frame 
+                            BackgroundColor="#efefef" 
+                            HasShadow="False" 
+                            BorderColor="LightGray"
+                            Padding="4">
+                            <StackLayout>
+                                <Label 
+                                    Text="{Binding Title}"
+                                    FontAttributes="Bold"
+                                    Padding="8"/>
+                                <CollectionView 
+                                    WidthRequest="250" 
+                                    ItemsSource="{Binding Cards}">
+                                    <CollectionView.ItemsLayout>
+                                        <LinearItemsLayout
+                                            Orientation="Vertical"
+                                            ItemSpacing="4" />
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate x:DataType="local:Card">
+                                            <Frame 
+                                                BorderColor="LightGray"
+                                                Padding="8"
+                                                HasShadow="False">
+                                                <Label Text="{Binding Title}" />
+                                            </Frame>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </StackLayout>
+                                
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </Grid>
+
+</ContentPage>
